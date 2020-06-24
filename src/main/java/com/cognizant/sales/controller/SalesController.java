@@ -12,6 +12,9 @@ import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -113,6 +116,7 @@ public class SalesController {
 		        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 		    })		 
 	@GetMapping("/getSales/v1")
+	@Cacheable(value = "sales")
 	public List<SalesOrder> getAllSales() {
 		
 		logger.debug("SalesController::getAllSales::entry()");
@@ -131,6 +135,7 @@ public class SalesController {
 	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	    })	
 	@GetMapping("/getSales/v2/{id}")
+	@Cacheable(value = "sales", key = "#salesId")
 	public ResponseEntity<SalesOrder> getSalesById(@PathVariable(value = "id") Long salesId)
 	        throws ResourceNotFoundException {
 		
@@ -151,6 +156,7 @@ public class SalesController {
 	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	    })	
 	@PutMapping("/updateSales/v1/{id}")
+	@CachePut(value = "sales", key = "#salesId")
 	public ResponseEntity<SalesOrder> updateSales(@PathVariable(value = "id") Long salesId,
 	         @RequestBody SalesOrder salesDetails) throws ResourceNotFoundException {
 		
@@ -179,6 +185,7 @@ public class SalesController {
 	        @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
 	    })	
 	@DeleteMapping("/deleteSales/v1/{id}")
+	@CacheEvict(value = "sale", allEntries=true)
 	public Map<String, Boolean> deleteSales(@PathVariable(value = "id") Long salesId)
 	         throws ResourceNotFoundException {
 		
