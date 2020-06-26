@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "SalesOrder")
 @ApiModel(description = "All details about the Sales. ")
-public class SalesOrder {
+public class SalesOrderEntity {
 	
-	public SalesOrder() {
+	public SalesOrderEntity() {
 		
 }
 
-	public SalesOrder(long salesId, String salesName, String salesType,
+	public SalesOrderEntity(long salesId, String salesName, String salesType,
 			int salesCount, float salesAmtperCount, float salesAmtTotal) {
 		super();
 		this.salesId = salesId;

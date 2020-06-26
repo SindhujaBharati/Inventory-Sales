@@ -14,12 +14,12 @@ import io.swagger.annotations.ApiModel;
 @Entity
 @Table(name = "Stock")
 @ApiModel(description = "All details about the Stock. ")
-public class Stock {
-	public Stock() {
+public class StockEntity {
+	public StockEntity() {
 		
 	}
 
-	public Stock(long stockId, String stockName, String stockType,
+	public StockEntity(long stockId, String stockName, String stockType,
 			int stockCount) {
 		super();
 		this.stockId = stockId;
